@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>判断质数</title>
+</head>
+
+<body>
+    <script>
+        // 封装函数：判断传入的数字是否是函数   1和自己整除的
+        // 不能被2到num-1之间的数组整除。
+        function isPrime(num) {
+            // for (var i = 2; i < num; i++) {
+            //     if (num % 2 == 0) return false;
+            // }
+            // return true;
+
+            //第二种方式： 通过平方根
+            var pars = parseInt(Math.sqrt(num));
+            for(var i =2;i<=pars;i++) {
+                if(num %i==0) return false;
+            }
+            return true;
+        }
+        alert(isPrime(13))
+        alert(isPrime(12))
+        alert(isPrime(123))
+        alert(isPrime(0))
+        let t = setTimeout(() => { console.log(1111)    
+            let t1 = setTimeout(() => { console.log(2222)        
+                let t2 = setTimeout(() => { console.log(3333) }, 
+                3000) }, 
+            2000) }, 
+        1000)
+    </script>
+</body>
+
+</html>

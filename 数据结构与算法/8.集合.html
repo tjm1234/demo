@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集合</title>
+</head>
+<body>
+    <script>
+        //封装集合类
+        function Set(){
+            // 属性
+            this.items = {};
+            // 1.添加add方法
+            Set.prototype.add = function (value) {
+                //判断当前集合中是否已经包含了该元素
+                if(this.has(value)) {
+                    return false;
+                }
+                this.items[value] = value;
+                return true;
+            }
+
+            //2.has方法
+            Set.prototype.has = function(value) {
+                return this.items.hasOwnProperty(value);
+            }
+            //3.remove方法
+            Set.prototype.remove = function(value) {
+                if(!this.has(value)) {
+                    return false;
+                }
+                delete this.items[value];
+            }
+            //4.clear方法
+            Set.prototype.clear = function(){
+                return this.items =  {};
+            }
+            //5.size方法
+            Set.prototype.size = function(){
+                return Object.keys(this.items).length;
+            }
+            //6.values方法，获取集合中所有的值
+            Set.prototype.values = function(){
+                return Object.keys(this.items);
+            }
+
+            // 集合间的操作,并集  A+B = AB
+            Set.prototype.union = function(otherSet) {
+                var unionSet = new Set();
+                var values = this.values();
+                for(var i=0;i<values.length;i++) {
+                    unionSet.add(values[i]);
+                }
+                //3.取出B集合中的元素，判断是否需要加到新集合
+                values2 = otherSet.values();
+                for(var i=0;i<values2.length;i++){
+                    unionSet.add(values2[i])
+                }
+                return unionSet;
+            }
+            // 交集
+            Set.prototype.intersection = function(otherSet){
+                //1。创建新的集合
+                var intersection = new Set();
+                //2.从A中取出一个个元素，判断是否同时存在于集合汇总
+                var values = this.values();
+                for(var i=0;i<values.length;i++) {
+                    var item = values[i];
+                    if(otherSet.has(item)){
+                        intersection.add(item);
+                    }
+                }
+                //3.返回 交集'
+                return intersection;
+            }
+
+            // 差集
+            Set.prototype.difference = function(otherSet) {
+                //1.创建新的集合
+                var differenceSet = new Set();
+                //2.取出A集合元素，判断是否同时存在B中，如果不存在于B中，则添加到新集合中。
+                var values = this.values();
+                for(var i=0;i<values.length;i++) {
+                    var item = values[i];
+                    if(!otherSet.has(item)){
+                        differenceSet.add(item)
+                    }
+                }
+                return differenceSet;
+            }
+
+            // 子集
+            Set.prototype.subSet = function(otherSet) {
+                // this 集合A    otherSet集合B
+                //遍历集合A中所有的元素，如果发现，集合A中的元素，在集合B中，那么就false
+                var values = this.values();
+                for(var i=0;i<values.length;i++) {
+                    var item = values[i];
+                    if(!otherSet.has(item)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            
+
+        }
+
+        var set = new Set();
+        set.add('333')
+        set.add('2333')
+        set.add('1333')
+        set.add('5333')
+        set.add('7333')
+        set.add('8333')
+         console.log(set.values(),'setA');
+        // console.log(set.remove('5333'));
+        // console.log(set.values());
+        // console.log(set.size());
+        // console.log(set.has('333'));
+        var setB = new Set();
+        setB.add('23232323')
+        setB.add('333')
+        console.log(setB.values(),'setB')
+        //并集
+        un = set.union(setB);
+        console.log(un.values());
+
+         //交集
+        inter = set.intersection(setB)
+        console.log(inter.values())
+
+        //差集
+        diff = set.difference(setB)
+        console.log(diff.values())
+
+        // 子集
+        subs = set.subSet(setB) 
+        console.log(subs)
+    </script>
+</body>
+</html>

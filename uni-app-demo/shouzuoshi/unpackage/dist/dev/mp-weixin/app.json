@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/about/about"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#007AFF",
+    "borderStyle": "black",
+    "backgroundColor": "#F8F8F8",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/c1.png",
+        "selectedIconPath": "static/c2.png",
+        "text": "内置组件"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "iconPath": "static/c3.png",
+        "selectedIconPath": "static/c4.png",
+        "text": "模板"
+      }
+    ]
+  },
+  "usingComponents": {
+    "u-link": "/components/uni-link/uni-link"
+  },
+  "sitemapLocation": "sitemap84.json"
+}

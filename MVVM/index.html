@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MVVM</title>
+    <script type="text/javascript" src='MVVM.js'></script>
+  </head>
+  <body>
+    
+      <div id='app'>
+          <input type='text' v-model='shop.good'>
+          <div v-html='shop.good'></div>
+          <div v-html='message'></div>-----
+          <div>{{shop.good}}</div>
+          <span>{{shop.price}}</span>
+          <strong>{{shop.size}}</strong>
+          <div>{{getNewName}}</div>
+          <ul>
+            <li>{{total1}}</li>
+            <li>{{total2}}</li>
+            <li v-on:click='change222'>{{total3}}</li>
+          </ul>
+          <button  v-on:click='change'>更新数据</button>
+      </div>
+
+      <script type="text/javascript">
+        var vm = new MVVM({
+          el:'#app',   // document.querySelector('#app')
+          data:{
+            total:'10',
+            total1:'11',
+            total2:'12',
+            total3:'13',
+            shop:{
+              good:'aaa',
+              price:'11',
+              size:'small'
+            },
+            message:'woco'
+          },
+          computed: {
+            getNewName(){
+              return this.shop.good +'架构22'
+            }
+          },
+          method:{
+            change(){
+              this.shop.good='我的'
+            },
+            change222(){
+              this.shop.good='我的2222'
+            }
+          }
+        })
+      </script>
+  </body>
+</html>

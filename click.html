@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>seajs example</title>
+</head>
+<body>
+<ul>
+	<li>点击1</li>
+	<li>点击2</li>
+	<li>点击3</li>
+	<li>点击4</li>
+	<li>点击5</li>
+	<button>点击5</button>
+</ul>
+<script>
+    var btnLi = document.querySelectorAll('li');
+    
+    document.body.onclick= function(ev){
+
+    	for(var i=0;i<btnLi.length;i++) {
+
+	    	(function(i){
+	    		setTimeout(function(){
+	    			console.log(i)
+	    		},(i+1)*1000)
+	    	})(i)
+	    }
+
+    }
+
+    let a = [10.11,12,NaN,23].map(parseInt)
+    console.log(a)
+
+
+    function cums(N){
+    	return N<=10^6
+    }
+    cums(10)
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("珠峰","我的",12)})();

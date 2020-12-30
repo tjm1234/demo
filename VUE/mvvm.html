@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVVM</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let obj2 = {
+        name:'111',
+        age:'第一层',
+        sy:{
+            s:'222',
+            y:'第二层',
+            cld:{
+                sm:'333',
+                mun:'第三层'
+            }
+        }
+    }
+    // Object.defineProperty(obj2,'name',{
+    //     value:123
+    // })
+    // fn(obj2)
+    // function fn(obj2) {
+    //     if(typeof obj2=='object') {
+    //         for(let k in obj2) {
+    //             console.log(obj2[k])
+    //             dereactive(obj2,k,obj2[k])
+    //         }
+    //     }
+        
+    // }
+    // function dereactive(obj,k,value) {
+    //     fn(value)
+    //     Object.defineProperty(obj,k,{
+    //         get(){
+    //             return value
+    //         },
+    //         set(newValue){
+    //             console.log(newValue)
+
+    //             value = newValue;
+    //         }
+    //     })
+
+    // }
+    // console.log(obj2)
+
+    var obj = new Proxy(obj2,{
+       get(target,key) {
+            return target[key]
+       },
+       set(target,key,val) {
+         target[k] = val;
+       }
+    })
+console.log(obj)
+</script>
+</html>

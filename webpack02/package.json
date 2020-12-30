@@ -1,0 +1,38 @@
+{
+  "name": "webpack02",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "webpack --config config/webpack.test.js",
+    "build": "webpack",
+    "dev": "webpack-dev-server --config config/webpack.dev.js",
+    "pro": "webpack --config config/webpack.pro.js"
+  },
+  "keywords": [],
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.3"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "css-minimizer-webpack-plugin": "^1.1.5",
+    "file-loader": "^6.2.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss": "^8.1.14",
+    "postcss-loader": "^4.1.0",
+    "postcss-preset-env": "^6.7.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "url-loader": "^4.1.1",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>自定义promise</title>
+    <script type="text/javascript" src='promise.js'></script>
+  </head>
+  <body>
+    
+
+      <script type="text/javascript">
+
+        function fooa(){}
+        var mm = fooa.name;
+console.log(mm,fooa.name)
+        new PromiseM((resolve,reject)=>{
+          setTimeout(()=>{
+         //   reject(1)
+            resolve(1111)
+            console.log(2)
+          },100)
+        }).then(
+          value=>{console.log('value',value)},
+          reason=>{console.log('reason',reason)}
+        ).then(
+          value=>{console.log('value2',value)},
+          reason=>{console.log('reason2',reason)}
+        )
+        // const p1 = Promise.resolve(2)
+        // const p2 = Promise.resolve(Promise.resolve(3))
+        // const p3 = Promise.resolve(Promise.reject(4));
+
+        // const p6 = Promise.resolveDelay(p1,2000)
+        // // p1.then(value=>{console.log('p1',value)})
+        // // p2.then(value=>{console.log('p2',value)})
+        // // p3.then(reason=>{console.log('p3',reason)})
+        // // p3.catch(reason=>{console.log('p3',reason)})
+
+        // Promise.race([p1,p2]).then(
+        //   values=>{
+        //     console.log(values)   // [2,3]
+
+        //   },
+        //   reason=>{
+
+        //   }
+        // )
+
+      </script>
+  </body>
+</html>

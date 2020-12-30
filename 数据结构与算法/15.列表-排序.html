@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表封装</title>
+</head>
+<body>
+    <script>
+        // 封装ArrayList
+        function ArrayList(){
+            //属性
+            this.array = [];
+            //方法
+            //将数据可以插入到数组中的方法
+            ArrayList.prototype.insert = function (item) {
+                this.array.push(item)
+            }
+
+            // toString方法
+            ArrayList.prototype.toString = function() {
+                return this.array.join(' ');
+            }
+
+            // 实现排序算法
+            ArrayList.prototype.temp = function (m,n) {
+                var temp = this.array[n];
+                this.array[n] = this.array[m];
+                this.array[m] = temp;
+            }
+            //冒泡排序:从头到尾依次比较相邻的两个元素的大小，如果当前元素大于下一个元素，那么交换位置
+            // 第一次：i=length-1,比较到倒数第一个位置
+            //第二次：i=length-2，比较倒数第二个位置
+            ArrayList.prototype.bubblesort = function () {
+                for(var i=0;i<this.array.length;i++) {   // 第二轮循环剩余的length-i的对比次数
+                    for(var j = 0;j<this.array.length;j++) {   // 第一轮循环将最大的元素冒泡到数组最后
+                        if(this.array[j]>this.array[j+1]) {
+                            this.temp(j,j+1);
+                        }
+                    }
+                }
+                return this.array;
+            }
+            //选择排序：
+            ArrayList.prototype.selectionSort = function(){
+                 //1.获取长度
+                 var length = this.array.length;
+                //2.外层循环:从0开始取数据
+                // 内层循环：从
+                for(var j=0;j<length-1;j++) {
+                    var min = j;
+                    for(var i=min+1;i<length;i++) {
+                        if(this.array[min]>this.array[i]) {
+                            min = i;
+                        }
+                    }
+                    this.temp(min,j)
+                }
+                return this.array;
+            }
+            //插入排序：
+            ArrayList.prototype.insertionSort = function(){
+                //1.获取长度
+                //2.外层循环第一个位置开始拿取数据，向后面局部有序进行插入
+                for(var i=1;i<this.array.length;i++) {
+                    //3.内部循环，获取i位置的元素，和i-1前面的数据依次进行比较
+                    var temp = this.array[i]  // 获取当前元素
+                  //  var j = i;
+                    while(this.array[i-1]>temp && i>0) {
+                        this.array[i] = this.array[i-1];
+                        i--;
+                    }
+                    //4.将i位置的数据，设置temp就可以
+                    this.array[i] = temp;
+                }
+                return this.array;
+            }
+            //希尔排序：
+            ArrayList.prototype.shellsort = function(){
+                //1.获取数组的长度
+                var length = this.array.length;
+                //2.初始化的增量（gap- 间隔/间隙）
+                var gap = Math.floor(length/2);
+
+                while(gap>=1) {
+                    for(var i = gap;i<length;i++) {
+                        var temp = this.array[i];
+                        var j = i;
+                        while(this.array[j-gap]>temp && j>gap-1) {
+                            this.array[j] = this.array[j-gap];
+                            j-= gap;
+                        }
+                        //5,将j设置的元素赋值给temp
+                        this.array[j] = temp;
+                    }
+                    //6.增量变化
+                    gap = Math.floor(gap/2);
+                    
+                }
+                return this.array;
+            }
+            //快速排序：
+            ArrayList.prototype.media = function (left,right) {
+                //1.取出中间的位置(
+                var center = Math.floor((left-right)/2)
+                //2.判断大小，并且进行交换
+                if(this.array[left]>this.array[center]) {
+                    this.temp(left,center);
+                }
+                if(this.array[center]>this.array[right]) {
+                    this.temp(center,right)
+                }
+                if(this.array[left]>this.array[right]) {
+                    this.temp(left,right);
+                }
+
+                //3.将center换到right-1的位置
+                this.temp(center,right-1)   // 目的是将中间值移动到倒数第二个位置。
+                return this.array[this.array-1];
+            }
+            ArrayList.prototype.quick = function (left,right) {
+                //1.结束条件
+                if(left>=right) return;
+                //2.获取数组
+                var provide = this.media(left,right);
+                //3.定义类型，用于记录当前找到的位置
+                var i = left;
+                var j =right-1;
+                //4.开始循环交换
+                while(true) {
+                    while(this.array[++i]<provide) {}
+                    while(this.array[--j]>provide) {}
+                    if(i<j) {
+                        this.temp(i,j);
+                    } else {
+                        break;
+                    }
+                }
+                // 将去妞放在正确的位置，i的位置。
+                this.temp(i,right-1);
+                this.quick(left,i-1);
+                this.quick(i+1,right);
+
+            }
+            ArrayList.prototype.quickSort = function() {
+                this.quick(0,this.array.length-1);
+
+            }
+
+        }
+
+        var list = new ArrayList();
+        list.insert(66)
+        list.insert(44)
+        list.insert(33)
+        list.insert(111)
+        list.insert(67)
+        list.insert(6)
+        list.insert(13)
+        console.log(list.toString())
+      //  console.log(list.bubblesort())
+        console.log(list.selectionSort())
+      //  console.log(list.shellsort())
+        console.log(list.quickSort())
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流</title>
+</head>
+<body>
+    <button id='btn'>节流函数</button>
+
+    <div style='height:5000px;'></div>
+</body>
+<script type="text/javascript">
+    window.onload = function(){
+        let btn = document.querySelector('#btn');
+        
+        /*方法一*/
+        function throttle(fn,delay){
+            let begin =0; // 标识
+            return function(){
+                let now = new Date().getTime();
+                if(now-begin>delay) {
+                    fn.apply(this,arguments);
+                    begin = now;
+                }
+            }
+        }
+
+        /*方法二*/
+        function throttle(fn){
+            let t = null,flag = true;
+            return function(){
+                if(!flag) return;   // 
+                flag = false;   // 如果函数在执行，返回false
+                t = setTimeout(function(){
+                    fn.apply(this,arguments);
+                    flag = true;   // 执行完之后返回true
+                },1000)
+            }
+        }
+
+        function fn(){
+            var scroll = document.documentElement.scrollTop || document.body.scrollTop;
+            console.log(scroll);
+        }
+        window.addEventListener('scroll',throttle(fn,1000),false)
+    }
+</script>
+</html>

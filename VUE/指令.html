@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>指令</title>
+    <style>
+        [v-cloak]{
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <h1 v-cloak>{{name}}</h1>
+        <!-- v-cloak 可以解决小胡子的显示问题 -->
+        <!-- v-pre 可以提高性能 ,告诉vue不用渲染，直接使用即可-->
+        <!-- <ul v-pre>
+            <li>{{name}}</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul> -->
+        <!-- <ul>
+            <li v-for="(item2,index22) in 10">{{item2}}==={{index22 }}</li>
+        </ul> -->
+        <ul>
+            <li v-for="(item2,index22) in '10'">{{item2}}==={{index22 }}</li>
+        </ul>
+        <input type="text" v-model='name'>
+        <i>{{name}}</i>------<i v-once>{{name}}</i>
+        <!-- v-once 只渲染元素和组件一次。 -->
+        <button @click='fn'>1</button>
+        <button @click='fn2'>2</button>
+        <input @keyup.13="submit">
+        <div v-for='(item,index) in ary' :key='index'>
+            {{item}}--{{index}}
+            <input type="checkbox">
+            <i @click='del(index)'>X</i>
+        </div>
+
+        <div>{{objss}}</div>
+        <button @click='fn2'>更新</button>
+        <i>{{t}}</i>
+
+        <h2>{{name | qq}}</h2>
+        <h4>{{nums}}</h4>
+    </div>
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+    <script>
+         Vue.config.keyCodes.qqq = 13
+         let vm = new Vue({
+            el :'#app',
+            data() {
+                return {
+                    name:'22',
+                    ary:[],
+                    fn(){
+                        console.log(this)   // this是window
+                    },
+                    objss:{
+                        a:'1',
+                        b:'2'
+                    },
+                    t:123,
+                    nums:'12324252432324'
+                }
+            },
+            methods: {
+                fn2(){
+                    console.log(this)    //this是 vm
+                },
+                submit(){
+                    console.log(333)
+                    this.ary.push(this.name)
+                },
+                del(index){
+                    this.ary.splice(index,1)
+                },
+                fn2(){
+                   // this.objss = Object.assign({c:'3'},this.objss)
+                   // this.objss['c'] = '3'
+                   // this.t = 0.5-Math.random()
+                   this.$set(this.objss,'c','5')
+                }
+            },
+            filters:{
+                qq(val){
+                    console.log(arguments)
+                    return val+'abs'
+                }
+            },
+            computed:{
+                nums(){
+                    console.log('ccc')
+                    return this.names.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

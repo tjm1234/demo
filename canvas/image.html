@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>图片压缩</title>
+</head>
+<body>
+   <input type="file" accept="image/jpg,image/png,image/jpeg" id='btn'>
+
+</body>
+   <script>
+       let inp = document.querySelector('#btn');
+       inp.onchange=function(ev){
+           let file = ev.target.files[0];  // 拿到用户选中的文件
+            console.log(file)
+            let reader = new FileReader();
+            reader.onload = function(e){
+               // console.log(e.target.result) // 输出base64
+                let url = e.target.result;
+                let image = new Image();
+                image.src= url;
+                compress(url)
+           //     document.body.appendChild(image);
+            }
+            reader.readAsDataURL(file);   // 将image转换为base64
+            console.log(reader)   
+
+       }
+
+
+       function compress(base_url) {   // 资源传递
+            let img = new Image();
+            img.src= base_url;
+            console.dir(img);   // naturalHeight  naturalWidth 原始宽度和高度
+            img.onload = function () {
+                let canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth/2;
+                canvas.height = img.naturalHeight/2;
+                let ctx = canvas.getContext('2d');
+                ctx.clearRect(0,0,canvas.width,canvas.height);   // 清空画布
+                ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+                //document.body.appendChild(canvas);
+
+                let img_compressed = canvas.toDataURL('image/png',0.8) // 爸canvas转png图片  压缩0.8
+                let img2 = new Image();
+                img2.src = img_compressed;
+                document.body.appendChild(img2);
+
+            }
+       }
+   </script>
+</html>

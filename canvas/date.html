@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>时钟</title>
+</head>
+<body>
+    <canvas id='canvas' width='500' height="500"></canvas>
+    <style>
+        #canvas{
+            width:400px;
+            height: 400px;
+            background: #ccc;
+        }
+    </style>
+</body>
+    <script>
+        let canavs = document.querySelector('canvas');
+        let ctx = canvas.getContext('2d');
+        let x = canvas.width/2,y=canvas.height/2;
+        ctx.save();
+        function draw() {
+            ctx.translate(x,y); // 坐标原点设置到x,y的位置
+            //画圆环
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(0,0,150,0,Math.PI*2);
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 5;
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.stroke();
+            ctx.fill();
+            ctx.restore();   // 之前的绘画保存
+
+            // 绘制小时
+            let houreAry = [3,4,5,6,7,8,9,10,11,12,1,2];
+            ctx.font = '18px 微软雅黑';
+            ctx.strokeStyle = '#ccc'
+            houreAry.forEach((item,index)=>{
+                let rad = Math.PI*2/12*index;
+                let x = 115*Math.cos(rad),
+                    y = 115*Math.sin(rad);
+                ctx.strokeText(item,x,y);
+            })
+
+            //绘制点
+            for(let i = 0;i<60;i++) {
+                ctx.beginPath();
+                ctx.save();
+                let rad = Math.PI*2/60*i;
+                let x = Math.cos(rad)*140,
+                    y = Math.sin(rad)*140;
+                if(i%5==0) {    //能被5整除的都是大圆
+                    ctx.strokeStyle = '#333';
+                    ctx.arc(x,y,5,0,Math.PI*2);
+                }else {
+                    ctx.strokeStyle = '#000';
+                    ctx.arc(x,y,3,0,Math.PI*2);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // 
+        function drawHourLine(h,m){   //画时针
+            ctx.save();
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#333';
+            let rad = Math.PI*2/12*(h+m/60);
+            ctx.rotate(rad);
+            ctx.moveTo(0,20);
+            ctx.lineTo(0,-110);
+            ctx.stroke();
+            ctx.restore();
+        }
+        function drawMinLine(m){   //画分针
+            ctx.save();
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            let rad = Math.PI*2/60*m;
+            ctx.rotate(rad);
+            ctx.strokeStyle = '#eee';
+            ctx.moveTo(0,20);
+            ctx.lineTo(0,-120);
+            ctx.stroke();
+            ctx.restore();
+        }
+        function drawSecondLine(s){   //画秒针
+            ctx.save();
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            let rad = Math.PI*2/60*s;
+            ctx.rotate(rad);
+            ctx.strokeStyle = '#f00';
+            ctx.moveTo(0,20);
+            ctx.lineTo(0,-130);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawDot(){   // 画中心语原点
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(0,0,10,0,Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        let timer = setInterval(()=>{
+            ctx.clearRect(0,0,500,500);
+            let date = new Date();
+            let h = date.getHours(),
+                m = date.getMinutes(),
+                s = date.getSeconds();
+            ctx.save();
+            draw();
+            drawHourLine(h,m);
+            drawMinLine(m);
+            drawSecondLine(s);
+            drawDot();
+            ctx.restore();
+
+        },1000)
+        
+
+       // ctx.save();   //  保存
+      //  ctx.restore();  // 清空  结合使用 可以重新绘制画布图像。
+    </script>
+</html>

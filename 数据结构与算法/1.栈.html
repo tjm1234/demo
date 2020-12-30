@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈内存</title>
+</head>
+<body>
+    <script>
+        function Stack(){
+            this.items = [];   // 栈的属性
+
+            //栈的相关操作
+            //1.将元素入栈
+            console.log(this)   // 实例化的对象
+            console.log( Stack.prototype)   // 原型上的方法，直接共享到全局，减少内存消耗,效率更高。
+            Stack.prototype.push = function(element){
+                return this.items.push(element);
+            }
+            //2.从栈中取出元素
+            Stack.prototype.pop = function(element){
+                return this.items.pop(element);
+            }
+            //3.查看栈顶的元素
+            Stack.prototype.look = function(){
+                return this.items[this.items.length-1];
+            }
+
+            //4.判断栈是否为空
+
+            Stack.prototype.isEmpty = function(){
+                return this.items.length==0;
+            }
+            //5.获取栈中元素的个数
+            Stack.prototype.len = function(){
+                return this.items.length;
+            }
+            //6.tostring方法
+            Stack.prototype.toString = function(){
+                var result = '';
+                for(var i=0;i<this.items.length;i++) {
+                    result+=this.items[i]+''
+                }
+                return result;
+            }
+        }
+
+        let s = new Stack();
+        s.push(10);
+        s.push(20);
+        s.push(30);
+        s.push(50);
+        s.push(60);
+        console.log(s);
+        s.pop();
+        s.pop();
+        console.log(s);
+        console.log(s.look());
+        console.log(s.len());
+        console.log(s.toString());
+    </script>
+</body>
+</html>

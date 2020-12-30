@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哈希表</title>
+</head>
+<body>
+    <script>
+        // 设计哈希函数
+        //1. 将字符串转换为比较大的数组：hashCode
+        //2.将大的数组hashcode压缩到数组的范围之内
+        function hashFunc(str,size){
+            //1.定义变量
+            var hashCode = 0;
+            //2.使用霍纳算法,计算hashCode的值  
+            // 通过chatAt 获取 unicode编码
+            for(var i=0;i<str.length;i++) {
+               hashCode = 37*hashCode + str.charCodeAt(i);
+            }
+
+            //3，取余操作
+            var index = hashCode%size;
+            return index;
+        }
+        console.log(hashFunc('abasdadadadadac',7))
+        console.log(hashFunc('sxa',7))
+        console.log(hashFunc('asx',7))
+        console.log(hashFunc('abasdadadaxaadadac',7))
+        console.log(hashFunc('asd',7))
+        console.log(hashFunc('asddsds',7))
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>画布</title>
+</head>
+<body>
+    <canvas id='canvas' width='500' height="500"></canvas>
+    <style>
+        #canvas{
+            width:500px;
+            height: 500px;
+            background: #ccc;
+        }
+    </style>
+</body>
+    <script>
+        //var canvas = document.getElementById('canvas');
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');   //绘图环境
+        console.log(ctx)
+        // ctx.beginPath();    // 开始的路径
+        // ctx.moveTo(20,20);   //  (x,y) 吧笔尖放到哪个坐标
+        // ctx.lineTo(20,50);   // 画一条线
+        // ctx.lineTo(200,50);   // 画一条线
+        // ctx.lineWidth = 5;
+        // ctx.strokeStyle = 'red';  // 线的颜色
+        // ctx.lineCap = 'round';   //控制线两端是圆角
+        // ctx.lineJoin = 'round';   //控制两线交叉的圆角
+        // let grad = ctx.createLinearGradient(20,20,300,300);
+        // grad.addColorStop(0,'red');
+        // grad.addColorStop(0.4,'green');
+        // grad.addColorStop(0.8,'yellow');
+        // grad.addColorStop(1,'blue');
+        // ctx.strokeStyle = grad;
+        // ctx.stroke();   //  绘制徒刑
+        // ctx.restore();
+
+        // ctx.beginPath();
+        // ctx.moveTo(20,400);
+        // ctx.lineTo(400,400);
+
+        // ctx.stroke();
+
+        let grad = ctx.createLinearGradient(20,20,300,300);
+        grad.addColorStop(0,'red');
+        grad.addColorStop(0.4,'green');
+        grad.addColorStop(0.8,'yellow');
+        grad.addColorStop(1,'blue');
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(50,50);
+        ctx.lineTo(50,200);
+        ctx.lineTo(200,200);
+        ctx.closePath();  // 合并线路  把终点和起始点进行连接
+        ctx.strokeStyle='red';
+        ctx.lineWidth=5;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor='#000';
+        ctx.shadowOffsetX=10;
+        ctx.shadowOffsetY=15;
+        ctx.stroke();   
+        ctx.fillStyle = grad;   //控制填充颜色
+        ctx.fill();   // 填充 颜色填充
+        ctx.restore();     //  设置上面的图对下面不起作用
+
+        ctx.beginPath();   // 重新一个起笔  也就是重新画一个图，不会影响上面
+        ctx.rect(200,200,100,100);
+        ctx.stroke();
+        ctx.fill();
+
+        // ctx.fillRect()  // 相当于react和fill的结合体
+        // ctx.strokeRect();  // 相当于 react 和stroke的结合体
+        // ctx.clearRect(x,y,w,h);  // x，y清除矩形的开始的坐标
+        ctx.clearRect(220,220,20,20);
+        ctx.arc(400,400,50,0,Math.PI/2,false)    //（x,y,r,start,end,bol） bol 默认是false 画一个半径
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fillStyle = grad;
+        ctx.scale(1.2,1.2);
+        ctx.fill();
+
+        ctx.font = '40px'
+        ctx.strokeText('珠峰',300,200);
+    </script>
+</html>

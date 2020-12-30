@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dev</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+</head>
+<body>
+    dev
+
+    #模块化开发   amd  cmd sea.js require.js common.js esmodule
+    common.js node环境
+    esmodule  浏览器
+
+    webpack 处理 JS需要借助babel
+    需要的包：
+     babel-loader 
+     @babel/core 
+     @babel/preset-env   转换babel  预设  告诉babel转换成哪个版本
+
+
+     externals 外部扩展：我们吧想要在项目中使用的包，从打包的文件中分离
+
+     externals:{
+         '自定义属性名':'包生成的全局变量'
+     }    import xxx from '自定义属性名'
+
+</body>
+</html>

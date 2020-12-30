@@ -1,0 +1,44 @@
+脚手架 create-react-app
+npm install create-react-app -g // 全局安装这个插件  安装node
+
+若不想安装  npx install create-react-app 项目名
+
+react组件 其实就是一个个的闭包，模块化就是闭包
+
+
+dangerouslySetInnerHTML:   对html进行渲染， 危险的html，本质上就是innerhtml
+        有可能xss攻击。
+
+react 中不能用for，只能用 htmlfor
+
+
+类组件都可以通过 this.props获取父组件传递信息，this继承了组件的实例类
+
+react 组件当中 一共有两个数据源，状态state，属性 props
+ state 是组件自己的状态，   props是父组件传进来的
+
+ this.fn.bind(this)  改变this的指向
+
+ react中数据更改 想要除法视图更新 需要使用setstate这个方法
+setState只是触发了 render，是为了合并对象，更新render
+ setState 是一个异步操作。所以采用callback 的方法使用。只能在类组件中使用setstate
+ this.setState({
+            count: ++this.state.count
+        })
+
+
+
+函数组件中：
+useState:useState 会返回一个数组，第一个值是我们的 state， 第二个值是一个函数，用来修改该 state 的 setCount
+
+
+
+angular ：双向数据流，双向数据绑定
+react：单向数据流
+vue：单向数据流，双向数据绑定
+
+
+proptype 传参数据类型检测
+
+
+react 项目中使用less   npm run eject

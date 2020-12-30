@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖</title>
+</head>
+<body>
+    <button id='button'>防抖</button>
+</body>
+<script type="text/javascript">
+    window.onload = function(){
+        var btn = document.getElementById('button');
+        btn.addEventListener('click',debounce(fn),false);
+
+        function debounce(fn){
+            let t = null;
+            return function(){
+                if(t) clearTimeout(t);
+                t = setTimeout(function(){
+                    fn.apply(this,arguments);
+                },1000)
+            }
+        }
+
+        function fn(){
+            console.log('触发了防抖。。')
+        }
+    }
+
+</script>
+
+</html>

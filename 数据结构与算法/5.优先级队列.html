@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优先级队列</title>
+</head>
+<body>
+    
+    <script>
+        // 封装队列
+        function QuickQueue(){
+            function QueueElement(element,priority){
+                this.element = element;
+                this.priority = priority;
+            }
+            this.items = [];
+
+            //1.将元素加入到队列中
+            QuickQueue.prototype.enqueue = function(element,priority) {
+                var queueElement = new QueueElement(element,priority);
+                
+                //判断队列是否为空
+                if(this.items.length==0) {
+                    this.items.push(queueElement);
+                } else {
+                    var added = false;
+                    for(var i=0;i<this.items.length;i++){
+                        if(queueElement.priority<this.items[i].priority){
+                            this.items.splice(i,0,queueElement);
+                            added = true;
+                            return;
+                        }
+                    }
+
+                    if(!added) {
+                        this.items.push(queueElement);
+                    }
+
+                }
+            }
+
+            //2。从队列中删除前面的元素
+            QuickQueue.prototype.shift = function () { 
+                return this.items.shift();
+             }
+            //3.查看前端的元素
+            QuickQueue.prototype.front = function () { 
+                return this.items[0];
+             }
+            //4。查看队列是否为空
+            QuickQueue.prototype.isEmpty = function () { 
+                return this.items.length==0;
+             }
+            //5.查看队列中元素的个数
+            QuickQueue.prototype.size =function(){
+                return this.items.length;
+            }
+            //6.tostring方法
+            QuickQueue.prototype.toString = function () { 
+                let result = '';
+                for(var i=0;i<this.items.length;i++) {
+                    result+=this.items[i].element+'-'+this.items[i].priority+' ``'
+                }
+                return result
+             }
+
+        }
+
+        var pq = new QuickQueue();
+        pq.enqueue('abc',111);
+        pq.enqueue('cba',333);
+        pq.enqueue('nba',222);
+alert(pq)
+    </script>
+</body>
+</html>

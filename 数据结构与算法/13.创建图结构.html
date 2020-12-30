@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建图结构</title>
+</head>
+<body>
+    <script>
+        //创建字典的构造函数
+        function Dictionay(){
+            //字典属性
+            this.items= {};
+
+            //字典操作方法
+            //在字典中添加键值对
+            Dictionay.prototype.set = function (key,value) {
+                this.items[key] = value;
+            }
+            //判断字典中是否有某个key
+            Dictionay.prototype.has = function (key) {
+                return this.items.hasOwnProperty(key);
+            }
+            //从字典中移除元素
+            Dictionay.prototype.remove = function (key) {
+                //1.判断字典中是否有这个key
+                if(!this.has(key)) return false;
+                //2.从字典红删除key
+                delete this.items[key];
+                return true;
+            }
+            //根据ley去获取value
+            Dictionay.prototype.get = function(key) {
+                return this.has(key)?this.items[key] : undefined;
+            }
+            //获取所有的keys
+            Dictionay.prototype.keys = function(){
+                return Object.keys(this.items);
+            }
+        }
+
+        var dict = new Dictionay();
+        
+
+        //封装队列
+        function Queue(){
+            this.items = [];
+            Queue.prototype.enqueue = function(value){
+                this.items.push(value)
+            }
+            Queue.prototype.dequeue = function () {
+                return this.items.shift();
+            }
+            Queue.prototype.isEmpty = function () {
+                return this.items.length == 0
+            }
+        }
+
+        //封装图结构
+        function Graph(){
+            //属性：顶点（数组）/边（字典）
+            this.vertexes  = [] //顶点
+            this.edges = new Dictionay() // 边
+
+            //方法
+            //添加方法
+            //1.添加顶点的方法
+            Graph.prototype.addVertex = function(v) {
+                this.vertexes.push(v);
+                this.edges.set(v,[]);
+            }
+            //2.添加边的方法
+            Graph.prototype.addEdge = function (v1,v2) {
+                this.edges.get(v1).push(v2);
+                this.edges.get(v1).push(v1);
+            }
+            // toString 字符串的实现
+            Graph.prototype.toString = function(){
+                var result = '';
+                for(var i=0;i<this.vertexes.length;i++) {
+                    result+=this.vertexes[i]+'->';
+                    var o = this.edges.get(this.vertexes[i]);
+                    for(var j=0;j<o.length;j++) {
+                        result +=o[j]+' '
+                    }
+                    result+='\n';
+                }
+                return result;
+            }
+            //初始化状态颜色
+            // 未被探索过  白色
+            // 探索过，未确认  灰色
+            // 探索过，访问过  黑色
+            Graph.prototype.initializeColor = function() {
+                var colors = [];
+                for(var i=0;i<this.vertexes.length;i++) {
+                    colors[this.vertexes[i]]='white'
+                }
+                return colors;
+            }
+
+            // 实现广度优先搜索（BFS）
+            Graph.prototype.bfs = function(initV,handler){
+                //1.初始化颜色
+                var colors = this.initializeColor();
+                //2。创建队列
+                var queue = new Queue();
+                //3.将顶点假如到队列中
+                queue.enqueue(initV)
+                //4.循环遍历队列中取出元素
+                while(!queue.isEmpty()) {
+                    var v = queue.dequeue();
+                    var vList = this.edges.get(v);
+                    colors[v] = 'gray';
+
+                    for(var i=0;i<vList.length;i++) {
+                        var e =vList[i];
+                        if(colors[e]=='white'){
+                            colors[e] =='gray';
+                            queue.enqueue(e);
+                        }
+                    }
+                    // 访问顶点
+                    handler(v);
+                    // 将顶点设置为黑色
+                    colors[v]=='black';
+                }
+
+            }
+       
+            //实现深度优先搜索（dfs）
+            Graph.prototype.dfs = function(initV,handler) {
+                //1.初始化颜色
+                var colors = this.initializeColor();
+                //2.从某个顶点开始依次递归访问
+                this.dfsVisit(initV,colors,handler)
+            }
+            Graph.prototype.dfsVisit = function(v,colors,handler){
+                //1.将颜色设置为灰色
+                colors[v] = 'gray';
+                //2.处理v顶点
+                handler(v);
+                //3.访问v相连的顶点
+                var vList = this.edges.get(v);
+                //4.将v设置成黑色
+                for(var i=0;i<vList.length;i++) {
+                    var e = vList[i];
+                    if(colors[e]=='white'){
+                        // 递归访问
+                        this.dfsVisit(e,colors,handler);
+                    }
+                }
+            }
+        }
+
+        //测试代码
+            //1.创建图结构
+            var graph = new Graph();
+            //2添加顶点
+            var myVertexes = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N'];
+            for(var i=0;i<myVertexes.length;i++) {
+                graph.addVertex(myVertexes[i]);
+            }
+            graph.addEdge('A','B');
+            graph.addEdge('A','C');
+            graph.addEdge('A','D');
+            graph.addEdge('E','D');
+            graph.addEdge('B','D');
+            graph.addEdge('G','i');
+            graph.addEdge('M','n');
+            graph.addEdge('N','o');
+            graph.addEdge('L','y');
+            graph.addEdge('F','z');
+            console.log(graph)
+            console.log(graph.toString())
+
+            //测试广度优先搜索
+            var result = '';
+            graph.bfs(graph.vertexes[0],function(v){
+                result+=v+' '
+            })
+            alert(result)
+
+            var result2 = ''
+            graph.dfs(graph.vertexes[0],function(v) {
+                result2+=v+' '
+            })
+            alert(result2)
+    </script>
+</body>
+</html>
