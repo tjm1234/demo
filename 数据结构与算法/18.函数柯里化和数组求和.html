@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.函数柯里化和数组求和</title>
+</head>
+<body>
+    <script>
+        // add(1)(2)(3).....(n)
+        // function add(n) {
+        //     var sum = n;
+        //     var temp = function (y) {
+        //         sum+=y;
+        //         return temp;
+        //     }
+        //     console.log(temp)
+        //     temp.toString = function () {
+        //         return sum;
+        //     }
+        //     return temp;
+        // }
+        
+        function add(n) {
+            var sum = n;
+            var temp = function (y) {
+                sum+=y;
+                return temp;
+            }
+            temp.toString = function () {
+                return sum;
+            }
+
+            return temp;
+        }
+        let a = add(1)(2)(3)(4)
+        console.log(a.toString());
+
+        // 数组求和
+        function add2(...args){
+            return args.reduce(function(prev,next){
+                return prev+next;
+            })
+        }
+        let res2 =  add2(1,2,3,4,5,6,7);
+        console.log(res2);
+      
+    </script>
+</body>
+</html>

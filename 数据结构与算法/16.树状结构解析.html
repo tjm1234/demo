@@ -19,20 +19,41 @@
         ]
 
         function deep(data){
-            for(var i = 0;i<data.length;i++) { // 外层循环
+            
+            for(var i=0;i<data.length;i++) {    // 当前
                 var pid = data[i].pid;
                 data[i].children = [];
-                for(var j = 0;j<data.length;j++) {   // 上一级j的id 等于当前i的pid
-                    if(data[j].id == pid) {
+                for(var j=0;j<data.length;j++) {  // 上一级
+                    if(data[j].id==pid) {
                         if(!data[j].children) {
                             data[j].children = [];
                             delete data[j].pid;
-                            
                         }
-                        data[j].children.push(data[i])
+                        data[j].children.push(data[i]);
                     }
                 }
             }
+
+
+            
+            
+            // for(var i = 0;i<data.length;i++) { // 当前层级i循环
+            //     var pid = data[i].pid;
+            //     data[i].children = [];
+            //     for(var j = 0;j<data.length;j++) {   // 上一级j的id 等于当前i的pid
+            //         if(data[j].id == pid) {
+            //             if(!data[j].children) {
+            //                 data[j].children = [];
+            //                 delete data[j].pid;
+                            
+            //             }
+            //             data[j].children.push(data[i])
+            //         }
+            //     }
+            // }
+
+
+
             return data[0]
         }
 
@@ -57,8 +78,8 @@
         // }
 
         const treeArray = [1,[2,3,3,[4,5,5],[855,7,8,9],[10,11,12,[13,14,15,16]]]];
-            
-        function flat(data){
+       
+        function flatFunc(data){
             var result = [];
             deep(data)
             function deep(data){
@@ -69,8 +90,9 @@
                 }
             }
             return result;
+            
         }
-        var flat = flat(treeArray);
+        var flat = flatFunc(treeArray);
         
         var temp = null;
         for(var i=0;i<flat.length;i++) {
@@ -88,6 +110,7 @@
             return self.indexOf(e) == i;
         })
          console.log(f)
+         
 
     </script>
 </body>

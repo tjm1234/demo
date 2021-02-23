@@ -39,23 +39,27 @@
                         }
                     }
                 }
+
                 return this.array;
             }
             //选择排序：
             ArrayList.prototype.selectionSort = function(){
+                
                  //1.获取长度
                  var length = this.array.length;
+                 var temp = null;
                 //2.外层循环:从0开始取数据
                 // 内层循环：从
                 for(var j=0;j<length-1;j++) {
                     var min = j;
-                    for(var i=min+1;i<length;i++) {
+                    for(var i=min+1;i<length;i++) {   // 第min 后面的几项进行比较
                         if(this.array[min]>this.array[i]) {
                             min = i;
                         }
                     }
                     this.temp(min,j)
                 }
+
                 return this.array;
             }
             //插入排序：
@@ -158,8 +162,9 @@
         list.insert(6)
         list.insert(13)
         console.log(list.toString())
-      //  console.log(list.bubblesort())
-        console.log(list.selectionSort())
+       // console.log(list.bubblesort())
+       // console.log(list.selectionSort())
+        console.log(list.insertionSort())
       //  console.log(list.shellsort())
         console.log(list.quickSort())
     </script>

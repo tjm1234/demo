@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17.每隔n秒输出数字</title>
+</head>
+<body>
+    <script>
+
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+        // async function m() {
+        //     function a(n){
+        //         return new Promise((resolve,reject)=>{
+        //             setTimeout(() => {
+        //                 resolve()
+        //             }, n*1000);
+        //         }).then(()=>{
+        //             console.log(n)
+        //         })
+        //     }
+        //     for(var i =0;i<arr.length;i++) {
+        //         await a(arr[i]);
+        //     }
+        // }
+        
+        // let ayn = async (n) => {
+        //     return new Promise((resolve,reject)=>{
+        //         setTimeout(()=>{
+        //             resolve();
+        //         },n*1000);
+        //     }).then(()=>{
+        //         console.log(n);
+        //     })
+        // }
+
+        // async function test(){
+        //     for(var i =0;i<5;i++) {
+        //         await ayn(i);
+        //     }
+        // }
+        // test();
+        
+            //   var arr = [];
+            //   for(let a=1;a<=10;a++) {
+            //       arr.push(a);
+            //   }
+
+            //   function deep(i) {
+            //       if(!i) return;
+            //       setTimeout(() => {
+            //           console.log(i)
+            //           deep(arr[i])
+            //       }, i*1000);
+            //   }
+
+            //   deep(arr[0])
+
+            function deep(i) {
+                if(!i) return;
+                setTimeout(()=>{
+                    console.log(i);
+                    deep(arr[i]);
+                },i*1000);
+            }
+            deep(arr[0]);
+    </script>
+</body>
+</html>

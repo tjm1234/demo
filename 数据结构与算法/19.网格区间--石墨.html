@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // input 数组内顺序不做保证
+const input = [
+  [1, 1],
+  [2, 1],
+  [2, 4],
+  [2, 5],
+  [3, 2],
+  [3, 4],
+  [4, 4],
+  [4, 5],
+  [4, 6],
+  [4, 7],
+  [5, 3],
+  [6, 3],
+  [6, 4],
+  [6, 5]
+]
+
+
+
+
+// 请在此处实现 polymerize 过程
+
+
+
+// 思路：  第一步，先遍历网格   arrlist
+// 第二部，获取 input对应在网格中的索引值，放在数组中
+// 第三步。遍历 input的值重新拼接arrlist相邻两个i
+
+function polymerize(arr) {
+  var arrlist = [],arrlistArr=[];
+  for(var i=0;i<8;i++) {
+      for(var j=0;j<8;j++) {
+          arrlist.push([i,j]);
+      }
+   
+  }
+  var indexs = [];
+   
+  arrlist.forEach((e,i)=>{
+       arr.forEach((ee,ii)=>{
+          if(e.toString()==ee.toString()) {
+   
+              indexs.push(i)
+   
+              
+          }
+      
+       }) 
+   
+  })
+console.log(indexs)
+ 
+  var newArr = [],
+     tempArr = [],
+     arrlistArr = [];
+for(var i=0;i<indexs.length;i++){
+    let current = indexs[i];
+    let next = indexs[i+1];
+    if(current+1 == next) tempArr.push(arrlist[current])
+
+  //  tempArr.push(arrlist[index]);
+    // if(indexs[i]+1 == indexs[i+1] || indexs[i]%8 == indexs[i+1]%8){
+    //     console.log(indexs[i])
+    // }
+ }
+ console.log(tempArr)
+//  for(var i=1,j=indexs.length;i<j;i++){
+//     if(indexs[i]+1 == indexs[i+1] || indexs[i]+8 == indexs[i+1]){
+//         tempArr.push(indexs[i]);
+//     } else {
+//         tempArr.push(indexs[i]);
+//         newArr.push(tempArr.slice(0));
+//         tempArr.length = 0;
+//     }
+//  }
+for(var i =0;i<newArr.length;i++) {
+    if(newArr[i].length==1)
+        arrlistArr.push(arrlist[newArr[i]])
+    if(newArr[i].length>1) {
+        let a = [];
+        for(var j=0;j<newArr[i].length;j++) {
+
+            a.push(arrlist[newArr[i][j]]);
+        }
+        arrlistArr.push(a)
+    }
+        
+}
+
+  return arrlistArr;
+
+}
+// output 结果举例，数组顺序不做要求
+// [
+//   [
+//     [1, 1],
+//     [2, 1]
+//   ],
+//   [
+//     [2, 4],
+//     [2, 5],
+//     [3, 4],
+//     [4, 4],
+//     [4, 5],
+//     [4, 6],
+//     [4, 7]
+//   ],
+//   [
+//     [3, 2]
+//   ],
+//   [
+//     [5, 3],
+//     [6, 3],
+//     [6, 4],
+//     [6, 5]
+//   ]
+// ]
+
+const output = polymerize(input)
+console.log(output)
+    </script>
+</body>
+</html>
